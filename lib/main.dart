@@ -1,3 +1,4 @@
+import 'package:devpizzaria/models/cart_models.dart';
 import 'package:devpizzaria/models/user_models.dart';
 import 'package:devpizzaria/screens/car.dart';
 import 'package:devpizzaria/screens/home.dart';
@@ -21,22 +22,29 @@ class MyApp extends StatelessWidget {
   Widget build(BuildContext context) {
     return  ScopedModel<UserModel>(
       model: UserModel(),
-      child: MaterialApp(
-        title: "Pizzaria",
-        routes: {
-          'home':(context) => Home(),
-          'car' : (context) => CarScreen(),
-          'login': (context) => LoginScreen(),
-          'produtos':(context) => ProdutoScreen(),
+      child: ScopedModelDescendant<UserModel>(
+        builder: (context, child, model){
+          return ScopedModel<CartModel>(
+            model: CartModel(model),
+            child: MaterialApp(
+              title: "Pizzaria",
+              routes: {
+                'home':(context) => Home(),
+                'car' : (context) => CarScreen(),
+                'login': (context) => LoginScreen(),
+                'produtos':(context) => ProdutoScreen(),
+              },
+              theme: ThemeData(
+                primaryColor: Colors.red,
+                inputDecorationTheme: InputDecorationTheme(
+                  enabledBorder: border,
+                  border: border,
+                ),
+              ),
+              home: Home(),
+            ),
+          );
         },
-        theme: ThemeData(
-          primaryColor: Colors.red,
-          inputDecorationTheme: InputDecorationTheme(
-            enabledBorder: border,
-            border: border,
-          ),
-        ),
-        home: Home(),
       ),
     );
   }

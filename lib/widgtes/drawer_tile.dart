@@ -1,3 +1,4 @@
+import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
 
 class DrawerTile extends StatelessWidget {
@@ -13,27 +14,32 @@ class DrawerTile extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     return Material(
-      color: Colors.black12,
+      color: Colors.transparent,
       child: InkWell(
         onTap: (){
           Navigator.of(context).pop();
           pageController.jumpToPage(page);
         },
-        child: Container(
-          height: 60.0,
-          child: Row(
-            children: <Widget>[
-              Icon(icon ?? Icons.home,
-                size: 32.0,
-                color: pageController.page.round() == page ?Colors.black: Colors.white,
+        child:  Column(
+          mainAxisAlignment: MainAxisAlignment.center,
+          children: <Widget>[
+            Container(
+              height: 60.0,
+              child: Row(
+                children: <Widget>[
+                  Icon(icon ?? Icons.home,
+                    size: 32.0,
+                    color: pageController.page.round() == page ?Colors.black: Colors.white,
+                  ),
+                  Text(text ?? "Inicio",
+                    style: TextStyle(fontSize: 16.0,
+                      color: pageController.page.round() == page ?Colors.black: Colors.white,
+                    ),
+                  ),
+                ],
               ),
-              Text(text ?? "Inicio",
-                style: TextStyle(fontSize: 16.0,
-                  color: pageController.page.round() == page ?Colors.black: Colors.white,
-                ),
-              ),
-            ],
-          ),
+            ),
+          ],
         ),
       ),
     );

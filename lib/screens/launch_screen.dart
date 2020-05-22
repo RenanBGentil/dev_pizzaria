@@ -49,7 +49,7 @@ class LaunchScreen extends StatelessWidget {
                   data: ProductData.document(
                     "Hamburger Frango",
                     Image.asset("images/lanche.jpg",fit: BoxFit.cover),
-                    "Hamburger Frabgo",
+                    "Hamburger Frango",
                     16.0,
                     "Lanche feito de frango, queijo e salada",
                   ),

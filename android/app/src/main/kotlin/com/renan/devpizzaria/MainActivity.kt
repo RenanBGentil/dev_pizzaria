@@ -1,4 +1,4 @@
-package renan.com.br.devpizzaria
+package com.renan.devpizzaria
 
 import androidx.annotation.NonNull;
 import io.flutter.embedding.android.FlutterActivity

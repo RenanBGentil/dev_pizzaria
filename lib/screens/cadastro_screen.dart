@@ -1,5 +1,3 @@
-import 'dart:convert';
-
 import 'package:devpizzaria/models/user_models.dart';
 import 'package:flutter/material.dart';
 import 'package:scoped_model/scoped_model.dart';
@@ -11,37 +9,27 @@ class CadastroScreen extends StatefulWidget {
 
 class _CadastroScreenState extends State<CadastroScreen> {
 
+  final _scaffoldKey = GlobalKey<ScaffoldState>();
+
   final _Nomecontroller = TextEditingController();
   final _Emailcontroller = TextEditingController();
   final _Senhacontroller = TextEditingController();
-  final _Confirmacontroller = TextEditingController();
   final _Endcontroller = TextEditingController();
 
   final _focusEmail = FocusNode();
   final _focusSenha = FocusNode();
-  final _focusConfirma = FocusNode();
   final _focusEnd = FocusNode();
 
-  String infoText="";
 
-  void Validator(){
-    setState(() {
-      if(_Senhacontroller != _Confirmacontroller){
-        infoText = "As senhas digitadas são diferentes";
-      }
-    });
-  }
 
   @override
   void dispose() {
     _Nomecontroller.dispose();
     _Emailcontroller.dispose();
     _Senhacontroller.dispose();
-    _Confirmacontroller.dispose();
     _Endcontroller.dispose();
     _focusEmail.dispose();
     _focusSenha.dispose();
-    _focusConfirma.dispose();
     _focusEnd.dispose();
     super.dispose();
   }
@@ -51,6 +39,7 @@ class _CadastroScreenState extends State<CadastroScreen> {
     return GestureDetector(
       onTap: (){FocusScope.of(context).unfocus();},
       child: Scaffold(
+        key: _scaffoldKey,
         appBar: AppBar(
           title: Text("Cadastre - se"),
           centerTitle: true,
@@ -61,7 +50,6 @@ class _CadastroScreenState extends State<CadastroScreen> {
                 _Nomecontroller.clear();
                 _Emailcontroller.clear();
                 _Senhacontroller.clear();
-                _Confirmacontroller.clear();
               },
             ),
           ],
@@ -105,7 +93,6 @@ class _CadastroScreenState extends State<CadastroScreen> {
                       const SizedBox(height: 20.0,),
 
                       TextField(
-                        obscureText: true,
                         decoration: InputDecoration(
                           labelText: "Endereço",
                         ),
@@ -126,24 +113,8 @@ class _CadastroScreenState extends State<CadastroScreen> {
                         ),
                         controller: _Senhacontroller,
                         focusNode: _focusSenha,
-                        onSubmitted: (_){
-                          FocusScope.of(context).requestFocus(_focusConfirma);
-                        },
                       ),
 
-                      const SizedBox(height: 20.0,),
-
-                      TextField(
-                        obscureText: true,
-                        decoration: InputDecoration(
-                          labelText: "Confirmar Senha",
-                        ),
-                        controller: _Confirmacontroller,
-                        focusNode: _focusConfirma,
-                        onSubmitted: (_){
-                          FocusScope.of(context).unfocus();
-                        },
-                      ),
 
                       const SizedBox(height: 20.0,),
 
@@ -160,7 +131,6 @@ class _CadastroScreenState extends State<CadastroScreen> {
                         padding: EdgeInsets.only(top: 14.0, bottom: 14.0),
                         color: Colors.red,
                         onPressed: (){
-                          Validator();
 
                           Map<String, dynamic> userData = {
                                 "nome":_Nomecontroller.text,
@@ -176,10 +146,6 @@ class _CadastroScreenState extends State<CadastroScreen> {
                           );
                         },
                       ),
-                      Text(infoText, style: TextStyle(
-                        fontWeight: FontWeight.bold,
-                        fontSize: 22.0,
-                      ),),
                     ],
                   ),
                 ),
@@ -190,7 +156,22 @@ class _CadastroScreenState extends State<CadastroScreen> {
       ),
     );
   }
-}
-void _onSuccess(){}
+  void _onSuccess(){
+    _scaffoldKey.currentState.showSnackBar( SnackBar(
+      content: Text("Usuário criado com sucesso",),
+      backgroundColor: Colors.red,
+      duration: Duration(seconds: 2,),
+    ));
+    Future.delayed(Duration(seconds: 2,)).then((_){
+      Navigator.of(context).pop();
+    });
+  }
 
-void _onFail(){}
+  void _onFail(){
+    _scaffoldKey.currentState.showSnackBar( SnackBar(
+      content: Text("Falha ao criar usuário ",),
+      backgroundColor: Colors.red,
+      duration: Duration(seconds: 2,),
+    ));
+  }
+}

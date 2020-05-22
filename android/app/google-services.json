@@ -1,0 +1,48 @@
+{
+  "project_info": {
+    "project_number": "614542644559",
+    "firebase_url": "https://devpizzaria-488ce.firebaseio.com",
+    "project_id": "devpizzaria-488ce",
+    "storage_bucket": "devpizzaria-488ce.appspot.com"
+  },
+  "client": [
+    {
+      "client_info": {
+        "mobilesdk_app_id": "1:614542644559:android:f4e55420f1f60f6905a13a",
+        "android_client_info": {
+          "package_name": "com.renan.devpizzaria"
+        }
+      },
+      "oauth_client": [
+        {
+          "client_id": "614542644559-apvlj9umoogvu8aag7qp0l6gqvkfru3s.apps.googleusercontent.com",
+          "client_type": 1,
+          "android_info": {
+            "package_name": "com.renan.devpizzaria",
+            "certificate_hash": "c92c610e3fb0d241055cc76c0d68442c289462c8"
+          }
+        },
+        {
+          "client_id": "614542644559-h8nguvgee0bbvtdl3lcrtpl93is8g66b.apps.googleusercontent.com",
+          "client_type": 3
+        }
+      ],
+      "api_key": [
+        {
+          "current_key": "AIzaSyBnpiVY7hZieBlU3wt3FnBauFcTExgbWRs"
+        }
+      ],
+      "services": {
+        "appinvite_service": {
+          "other_platform_oauth_client": [
+            {
+              "client_id": "614542644559-h8nguvgee0bbvtdl3lcrtpl93is8g66b.apps.googleusercontent.com",
+              "client_type": 3
+            }
+          ]
+        }
+      }
+    }
+  ],
+  "configuration_version": "1"
+}

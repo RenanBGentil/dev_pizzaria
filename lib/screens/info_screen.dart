@@ -1,5 +1,10 @@
 import 'package:carousel_pro/carousel_pro.dart';
+import 'package:devpizzaria/datas/car_data.dart';
 import 'package:devpizzaria/datas/product_datas.dart';
+import 'package:devpizzaria/models/cart_models.dart';
+import 'package:devpizzaria/models/user_models.dart';
+import 'package:devpizzaria/screens/car.dart';
+import 'package:devpizzaria/screens/login_screen.dart';
 import 'package:flutter/material.dart';
 
 class InfoScreen extends StatefulWidget {
@@ -17,6 +22,7 @@ class _InfoScreenState extends State<InfoScreen> {
   final ProductData productData;
 
   _InfoScreenState(this.productData);
+
 
   @override
   Widget build(BuildContext context) {
@@ -70,14 +76,35 @@ class _InfoScreenState extends State<InfoScreen> {
                 Divider(),
                 const SizedBox(height: 16.0,),
                 FlatButton(
-                  onPressed: (){},
                   color: Colors.red,
                   splashColor: Colors.black,
                   padding: EdgeInsets.only(top: 14.0, bottom: 14.0),
                   shape: RoundedRectangleBorder(
                     borderRadius: BorderRadius.circular(20.0),
                   ),
-                    child: Text("Adicionar ao carrinho",style: TextStyle(
+                  onPressed: (){
+                    if(UserModel.of(context).isLoggedIn()){
+
+                      CartProduct cartProduct = CartProduct();
+                      cartProduct.quantity = 1;
+                      cartProduct.pid = productData.id;
+
+                      CartModel.of(context).addCartItem(cartProduct);
+
+                      Navigator.of(context).push(MaterialPageRoute(
+                        builder: (context) => CarScreen()
+                      ));
+                    }
+                    else{
+                      Navigator.of(context).push(MaterialPageRoute(
+                        builder: (context)=>LoginScreen()
+                      ));
+                    }
+                  },
+                    child: Text( UserModel.of(context).isLoggedIn()
+                        ? "Adicionar ao carrinho"
+                    : "Entre para comprar",
+                      style: TextStyle(
                       color: Colors.white,
                       fontWeight: FontWeight.bold,
                     ),

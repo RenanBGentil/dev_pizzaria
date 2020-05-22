@@ -9,9 +9,12 @@ class LoginScreen extends StatefulWidget {
   @override
   _LoginScreenState createState() => _LoginScreenState();
 }
+
+final _scaffoldKey = GlobalKey<ScaffoldState>();
+
 final _focusSenha = FocusNode();
-final _textControllerup = TextEditingController();
-final _textControllerdouwn = TextEditingController();
+final _emailController= TextEditingController();
+final _senhaController = TextEditingController();
 
 
 class _LoginScreenState extends State<LoginScreen> {
@@ -23,6 +26,7 @@ class _LoginScreenState extends State<LoginScreen> {
         FocusScope.of(context).unfocus();
       },
       child: Scaffold(
+        key: _scaffoldKey,
         appBar: AppBar(
           title: Text("Login"),
           centerTitle: true,
@@ -56,7 +60,7 @@ class _LoginScreenState extends State<LoginScreen> {
                           onSubmitted: (_){
                             FocusScope.of(context).requestFocus(_focusSenha);
                           },
-                          controller: _textControllerup,
+                          controller: _emailController,
                           decoration: InputDecoration(
                             labelText: "E-mail",
                           ),
@@ -67,7 +71,7 @@ class _LoginScreenState extends State<LoginScreen> {
                             FocusScope.of(context).unfocus();
                           },
                           focusNode: _focusSenha,
-                          controller: _textControllerdouwn,
+                          controller: _senhaController,
                           obscureText: true,
                           decoration: InputDecoration(
                             labelText: "Senha",
@@ -86,12 +90,33 @@ class _LoginScreenState extends State<LoginScreen> {
                           padding: EdgeInsets.symmetric(vertical: 16.0, horizontal: 138.0,),
                           color: Colors.red,
                           onPressed: (){
-                            model.signIn();
+                            model.signIn(
+                              email: _emailController.text,
+                              pass: _senhaController.text,
+                              onSuccess: _onSuccess,
+                              onFail: _onFail,
+                            );
                           },
                         ),
                         const SizedBox(height: 20.0,),
                         GestureDetector(
-                          onTap: (){},
+                          onTap: (){
+                            if(_emailController.text.isEmpty){
+                              _scaffoldKey.currentState.showSnackBar( SnackBar(
+                                content: Text("Insira seu e-mail para recupareção",),
+                                backgroundColor: Colors.red,
+                                duration: Duration(seconds: 2,),
+                              ));
+                            }
+                            else {
+                              model.recoverPass(_emailController.text);
+                              _scaffoldKey.currentState.showSnackBar( SnackBar(
+                                content: Text("Confira seu e-mail",),
+                                backgroundColor: Colors.red,
+                                duration: Duration(seconds: 2,),
+                              ));
+                            }
+                          },
                           child: Text("Esqueci minha senha",
                             style: TextStyle(
                               color: Colors.blue,
@@ -108,5 +133,17 @@ class _LoginScreenState extends State<LoginScreen> {
         ),
       ),
     );
+  }
+
+  void _onSuccess(){
+    Navigator.of(context).pop();
+  }
+
+  void _onFail(){
+    _scaffoldKey.currentState.showSnackBar( SnackBar(
+      content: Text("Falha ao entrar ",),
+      backgroundColor: Colors.red,
+      duration: Duration(seconds: 2,),
+    ));
   }
 }

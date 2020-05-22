@@ -17,7 +17,8 @@ class ProductTile extends StatelessWidget {
       children: <Widget>[
             InkWell(
                  onTap: (){
-                   Navigator.of(context).push(MaterialPageRoute(builder: (context)=>InfoScreen(productData: data,)));
+                   Navigator.of(context).push(MaterialPageRoute(builder:
+                       (context)=>InfoScreen(productData: data,)));
                  },
                 splashColor: Colors.red,
                 child:Card(
@@ -29,8 +30,16 @@ class ProductTile extends StatelessWidget {
                         padding: EdgeInsets.all(5.0),
                         child: data.image??Image.asset(""),
                       ),
-                      Text(data.title,style: TextStyle(fontSize: 20.0, fontWeight: FontWeight.w300),),
-                      Text("preço: R\$ ${data.preco.toStringAsFixed(2)} ",style: TextStyle(fontSize: 20.0, fontWeight: FontWeight.bold),),
+                      Text(data.title,style:
+                      TextStyle(
+                          fontSize: 20.0, fontWeight: FontWeight.w300
+                        ),
+                      ),
+                      Text("preço: R\$ ${data.preco.toStringAsFixed(2)} ",
+                        style: TextStyle(
+                            fontSize: 20.0, fontWeight: FontWeight.bold
+                        ),
+                      ),
                     ],
                   ),
                 ),

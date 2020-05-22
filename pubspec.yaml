@@ -30,6 +30,8 @@ dependencies:
   firebase_auth: any
   cloud_firestore: any
   url_launcher: any
+  firebase_storage: any
+
 
 dev_dependencies:
   flutter_test:
